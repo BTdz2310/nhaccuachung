@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Nhaccuatoi.Models;
 
 namespace Nhaccuatoi.Controllers;
@@ -15,6 +16,10 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        var userId = HttpContext.Session.GetString("UserId");
+        var userName = HttpContext.Session.GetString("UserName");
+        ViewBag.userName = userName;
+        Console.WriteLine("Id: {0}, Username: {1}", userId, userName);
         return View();
     }
 
