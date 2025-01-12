@@ -1,8 +1,102 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="text-4xl bg-red-300">Welcome @(ViewBag.userName ?? "")</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="flex gap-[32px]">
+    <div class="w-8/12 gap-[40px]">
+        <div class="pt-[40px] overflow-hidden">
+            <h3 class="font-inter font-semibold text-2xl pb-[20px]">Main</h3>
+            <div class="bg-[#496E49] rounded-3xl h-[240px] flex px-[20px] relative">
+                <div class="flex flex-col justify-between items-start py-[20px]">
+                    <div class="flex flex-col gap-2">
+                        <p class="text-white font-inter text-base">Billie Eilish</p>
+                        <p class="text-white font-inter text-5xl font-semibold">What Was I Made For?</p>
+                    </div>
+                    <button class="px-8 py-2 bg-white text-black rounded-full text-sm">
+                        <i class="fa-solid fa-play pr-1"></i>
+                        Listen now
+                    </button>
+                </div>
+                <img class="right-[20px] bottom-0 absolute h-[280px] z-50" src="/images/billie.png"/>
+                <img class="absolute animate-spin-slow w-[360px] right-[-50px] bottom-[-60px]" src="/images/star.png" />
+            </div>
+        </div>
+        <div class="mt-[40px] flex flex-col gap-[28px]">
+            <div class="flex justify-between items-center">
+                <h4 class="font-inter font-medium text-xl">Playlists for you</h4>
+                <p class="text-sm">View all</p>
+            </div>
+            <div class="flex gap-[12px] overflow-auto">
+                <div class="relative shrink-0 h-[180px] w-[180px] rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <img src="/images/the-wrxdies.jpg" class="absolute w-full h-full object-cover" />
+                    <div class="absolute w-full h-full inset-0" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 30%,rgba(0, 0, 0, 0) 70%,  rgba(0, 0, 0, 0.5) 100%);"></div>
+                    <p class="z-20 pl-3 pt-3">THE WXRDIES</p>
+                    <p class="z-20 pl-3 pb-4 text-sm">24 tracks</p>
+                </div>
+                <div class="relative shrink-0 h-[180px] w-[180px] rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <img src="/images/rosie.jpg" class="absolute w-full h-full object-cover" />
+                    <div class="absolute w-full h-full inset-0" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 30%,rgba(0, 0, 0, 0) 70%,  rgba(0, 0, 0, 0.5) 100%);"></div>
+                    <p class="z-20 pl-3 pt-3">Rosie</p>
+                    <p class="z-20 pl-3 pb-4 text-sm">12 tracks</p>
+                </div>
+                <div class="relative shrink-0 h-[180px] w-[180px] rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <img src="/images/ai.webp" class="absolute w-full h-full object-cover" />
+                    <div class="absolute w-full h-full inset-0" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 30%,rgba(0, 0, 0, 0) 70%,  rgba(0, 0, 0, 0.5) 100%);"></div>
+                    <p class="z-20 pl-3 pt-3">ái</p>
+                    <p class="z-20 pl-3 pb-4 text-sm">12 tracks</p>
+                </div>
+                <div class="relative shrink-0 h-[180px] w-[180px] rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <img src="/images/danhdoi.jpeg" class="absolute w-full h-full object-cover" />
+                    <div class="absolute w-full h-full inset-0" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 30%,rgba(0, 0, 0, 0) 70%,  rgba(0, 0, 0, 0.5) 100%);"></div>
+                    <p class="z-20 pl-3 pt-3">Đánh Đổi</p>
+                    <p class="z-20 pl-3 pb-4 text-sm">20 tracks</p>
+                </div>
+                <div class="relative shrink-0 h-[180px] w-[180px] rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <img src="/images/batnolen.webp" class="absolute w-full h-full object-cover" />
+                    <div class="absolute w-full h-full inset-0" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 30%,rgba(0, 0, 0, 0) 70%,  rgba(0, 0, 0, 0.5) 100%);"></div>
+                    <p class="z-20 pl-3 pt-3">Bật Nó Lên</p>
+                    <p class="z-20 pl-3 pb-4 text-sm">10 tracks</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grow">
+        <div class="pt-[40px]">
+            <h4 class="text-lg font-semibold pb-[20px]">Now playing</h4>
+            <div class="h-[64px] w-full relative">
+                <div class="flex justify-between items-start w-full p-[6px] h-full" style="background: rgba(255, 255, 255, 0.2);">
+                    <div class="flex gap-[12px] h-full">
+                        <div class="h-full">
+                            <img class="h-full rounded-lg" src="/images/haytraochoanh.webp" />
+                        </div>
+                        <div class="flex flex-col justify-between">
+                            <p class="font-inter text-sm font-medium">Hãy Trao Cho Anh</p>
+                            <p class="font-inter text-xs pb-[8px]">Sơn Tùng M-TP</p>
+                        </div>
+                    </div>
+                    <p class="font-inter text-sm">4:06</p>
+                </div>
+                @* <div class="w-full h-full absolute inset-0 bg-selected animate-shimmer"></div> *@
+            </div>
+            @for (int i = 0; i < 5; i++)
+            {
+                <div class="h-[64px] w-full relative">
+                    <div class="flex justify-between items-start w-full p-[6px] h-full">
+                        <div class="flex gap-[12px] h-full">
+                            <div class="h-full">
+                                <img class="h-full rounded-lg" src="/images/haytraochoanh.webp" />
+                            </div>
+                            <div class="flex flex-col justify-between">
+                                <p class="font-inter text-sm font-medium">Hãy Trao Cho Anh</p>
+                                <p class="font-inter text-xs pb-[8px]">Sơn Tùng M-TP</p>
+                            </div>
+                        </div>
+                        <p class="font-inter text-sm">4:06</p>
+                    </div>
+                    @* <div class="w-full h-full absolute inset-0 bg-selected animate-shimmer"></div> *@
+                </div>
+            }
+        </div>
+    </div>
 </div>
