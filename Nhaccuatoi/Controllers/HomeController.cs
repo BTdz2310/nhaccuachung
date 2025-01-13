@@ -18,7 +18,7 @@ public class HomeController : Controller
     {
         var userId = HttpContext.Session.GetString("UserId");
         var userName = HttpContext.Session.GetString("UserName");
-        ViewBag.userName = userName;
+        // ViewBag.Session = HttpContext.Session;
         Console.WriteLine("Id: {0}, Username: {1}", userId, userName);
         return View();
     }
