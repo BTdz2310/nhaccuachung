@@ -4,47 +4,58 @@
 @inject IHttpContextAccessor HttpContextAccessor
 
 <div class="min-h-screen relative bg-[#101010]">
-  <div class="w-[200px] bg-[#101010] h-full absolute inset-0 flex flex-col justify-between text-white py-[32px] px-[20px]">
+  <div
+    class="w-[200px] bg-[#101010] h-screen fixed inset-0 flex flex-col justify-between text-white py-[32px] px-[20px]">
     <div class="flex flex-col justify-start gap-[60px]">
       <div>
         <i class="fa-solid fa-bars"></i>
       </div>
       <div>
-        <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Main</p>
-        <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Radio</p>
-        <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Podcasts</p>
-        <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Books</p>
+        <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Trang Chủ</p>
       </div>
       <div>
-        <h3 class="font-inter text-lg pb-2 text-[#E7E7E7] font-medium">My music</h3>
-        <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Tracks</p>
+        <h3 class="font-inter text-lg pb-2 text-[#E7E7E7] font-medium">Âm nhạc quanh ta</h3>
+        <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Bài hát</p>
         <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Albums</p>
-        <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Artists</p>
-        <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Playlists</p>
-        <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Files</p>
+        <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Nghệ sĩ</p>
+        <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Danh sách yêu thích</p>
       </div>
     </div>
     <div>
-      <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Setting</p>
-      <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Log out</p>
+      @* <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Setting</p>
+      <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Log out</p> *@
+      @Html.Raw(!string.IsNullOrEmpty(HttpContextAccessor.HttpContext?.Session.GetString("UserId"))
+            ? "<a href='/account/logout'>Đăng xuất</a>"
+            : "<a href='/account/signin'>Đăng nhập</a>")
     </div>
   </div>
   <div class="bg-[#232323] ml-[200px] w-[calc(100vw-200px)] h-full min-h-screen md:rounded-s-[32px]">
     <div class="px-[32px] py-[32px] text-white">
       <div class="w-full flex">
-          <form class="w-8/12 flex gap-3 items-center border-b-[1px] border-white pb-2">
-              <i class="fa-solid fa-magnifying-glass text-white"></i>
-              <input placeholder="Search" class="bg-inherit border-0 outline-0 text-white grow text-xs" />
-          </form>
-          <div class="flex items-center gap-[12px] justify-end grow">
-              <div>@(HttpContextAccessor.HttpContext.Session.GetString("UserName") ?? "Anonymous")</div>
-              <div class="w-[40px] h-[40px] rounded-full bg-red-200 uppercase text-black font-bold flex justify-center items-center">@((HttpContextAccessor.HttpContext.Session.GetString("UserName") ?? "Anonymous").Substring(0, 1))</div>
-          </div>
+        <form class="grow flex gap-3 items-center border-b-[1px] border-white pb-2 mr-[32px]">
+          <i class="fa-solid fa-magnifying-glass text-white"></i>
+          <input placeholder="Search" class="bg-inherit border-0 outline-0 text-white grow text-xs" />
+        </form>
+        <div class="flex items-center gap-[12px] justify-end w-[320px]">
+          <div>@(HttpContextAccessor.HttpContext.Session.GetString("UserName") ?? "Anonymous")</div>
+          <div
+            class="w-[40px] h-[40px] rounded-full bg-red-200 uppercase text-black font-bold flex justify-center items-center">
+            @((HttpContextAccessor.HttpContext.Session.GetString("UserName") ?? "Anonymous").Substring(0, 1))</div>
+        </div>
       </div>
-      <div class="">
-        @RenderBody()
-      </div>
+      @RenderBody()
     </div>
   </div>
   <partial name="_MusicAudio" />
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async function () {
+    const response = await fetch("/MusicAudio", {
+      method: "POST",
+      body: JSON.stringify({ id: "0D78ACB1-794A-431D-A432-00E6A540E28A" })
+    })
+    const json = await response.json();
+    console.log(json)
+  });
+</script>

@@ -1,0 +1,63 @@
+@model List<SongModel>
+
+@{
+  ViewData["Title"] = "Admin";
+  Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="flex flex-col">
+  <div class="py-[16px] flex flex-col">
+    <p class="font-bold text-3xl text-white">Quản lý bài hát</p>
+    <button onclick="openModalAddSong()" class="bg-green-500 text-white px-4 py-2 rounded my-2">Thêm bài hát</button>
+    <div class="container mt-5">
+      <table class="table table-hover table-bordered table-striped shadow rounded text-white overflow-scroll w-full">
+        <thead class="table-dark text-center align-middle">
+          <tr class="">
+            <th scope="col" class="px-1">#</th>
+            <th scope="col" class="px-1">Ảnh</th>
+            <th scope="col" class="px-1">Tên bài hát</th>
+            <th scope="col" class="px-1">Ca sĩ</th>
+            <th scope="col" class="px-1">Album</th>
+            <th scope="col" class="px-1">Thể loại</th>
+            <th scope="col" class="px-1">Năm phát hành</th>
+            <th scope="col" class="px-1">Lượt nghe</th>
+            <th scope="col" class="px-1">Lời</th>
+            <th scope="col" class="px-1">Nghe thử</th>
+            <th scope="col" class="px-1">Hành động</th>
+          </tr>
+        </thead>
+        <tbody class="text-center align-middle" id="song-display">
+          @foreach (var song in Model)
+          {
+            <tr class="">
+              <th scope="row">@song.Id</th>
+              <td>
+                <img src="@song.Image" alt="Ảnh bài hát"
+                  class="rounded shadow-sm object-cover object-center w-[45px] h-[45px] ml-[8px]" />
+              </td>
+              <td class="fw-semibold">@song.Name</td>
+              <td>@song.Singer</td>
+              <td>@(song.Album?.Title)</td>
+              <td>@(song.Genre?.Name)</td>
+              <td>@song.ReleasedYear</td>
+              <td>@song.PlayCount</td>
+              <td class="text-start line-clamp-4" style="max-width: 200px;">@song.Description</td>
+              <td>
+                <audio controls style="width: 150px;">
+                  <source src="@song.Source" type="audio/mpeg">
+                  Trình duyệt không hỗ trợ!
+                </audio>
+              </td>
+              <td class="">
+                <i class="cursor-pointer fa-solid fa-pen-to-square p-2 rounded-full bg-blue-500 text-white"
+                  data-song='@Html.Raw(Json.Serialize(song))' onclick="openModalUpdateSong(this)"></i>
+                <i class="cursor-pointer fa-solid fa-trash p-2 rounded-full bg-red-700 text-white"
+                  onclick="removeSong(@song.Id)"></i>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

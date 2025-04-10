@@ -29,6 +29,17 @@ public class AccountController : Controller
     return View("SignIn");
   }
 
+  [HttpGet]
+  public async Task<IActionResult> Logout()
+  {
+      await _signInManager.SignOutAsync();
+      
+      HttpContext.Session.Remove("UserId");
+      HttpContext.Session.Remove("UserName");
+
+      return RedirectToAction("Index", "Home");
+  }
+
   [HttpPost]
   public async Task<IActionResult> SignIn(SignInModel signInModel)
   {
@@ -41,10 +52,19 @@ public class AccountController : Controller
         if (user != null && await _userManager.CheckPasswordAsync(user, signInModel.Password))
         {
 
-            HttpContext.Session.SetString("UserId", user.Id);
-            HttpContext.Session.SetString("UserName", user.UserName);
+          var roles = await _userManager.GetRolesAsync(user);
+          var role = roles.FirstOrDefault();
 
-            return RedirectToAction("Index", "Home");
+          await _signInManager.SignInAsync(user, isPersistent: false);
+
+          HttpContext.Session.SetString("UserId", user.Id);
+          HttpContext.Session.SetString("UserName", user.UserName);
+          
+          if (role == "Admin") {
+            return RedirectToAction("Dashboard", "Admin");
+          }
+
+          return RedirectToAction("Index", "Home");
         }
         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
     }

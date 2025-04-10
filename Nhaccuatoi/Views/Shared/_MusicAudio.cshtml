@@ -2,24 +2,122 @@
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="fixed bottom-0 right-0 w-[calc(100vw-200px)] !backdrop-blur !supports-[backdrop-filter]:bg-background/40 h-[64px] z-50">
-  <div class="absolute h-[4px] top-[-4px] w-full bg-blue-400"></div>
+<div
+  class="fixed bottom-0 right-0 w-[calc(100vw-200px)] !backdrop-blur !supports-[backdrop-filter]:bg-background/40 h-[64px] z-50"
+  style="display: none;" id="player">
+  @* <div class="absolute h-[4px] top-[-4px] w-full bg-blue-400"></div> *@
+  <input type="range" id="progress" value="0" min="0" step="1"
+    class="absolute h-[4px] top-[-4px] w-full cursor-pointer" />
   <div class="h-full px-[12px] py-[8px] flex justify-between items-center">
-    <div class="h-full flex gap-[16px] w-[360px]">
-      <img class="h-full rounded-lg" src="/images/haytraochoanh.webp" />
+    <div class="h-full flex gap-[16px] w-[360px] items-center">
+      <img class="h-full rounded-lg" src="/images/haytraochoanh.webp" id="song-image" />
       <div>
-        <p class="text-white font-inter font-semibold">Hãy Trao Cho Anh</p>
-        <p class="text-white font-inter text-xs">Sơn Tùng M-TP</p>
+        <p class="text-white font-inter font-semibold" id="song-name"></p>
+        <p class="text-white font-inter text-xs" id="song-singer"></p>
       </div>
+      <p class="text-white font-inter text-sm pl-4"><span id="current-time">00:00</span>/<span
+          id="duration-time">00:00</span></p>
     </div>
     <div class="mx-auto flex gap-[12px] items-center">
-        <i class="fa-solid fa-backward-step text-white text-xl"></i>
-        <i class="fa-solid fa-play text-black text-xl p-[8px] rounded-full bg-white"></i>
-        <i class="fa-solid fa-forward-step text-white text-xl"></i>
+      <i class="fa-solid fa-backward-step text-white text-xl cursor-pointer" id="backward"></i>
+      <i class="fa-solid fa-play text-black text-xl h-[36px] w-[36px] items-center justify-center rounded-full bg-white cursor-pointer"
+        id="play-button" style="display: none;"></i>
+      <i class="fa-solid fa-pause text-black text-xl h-[36px] w-[36px] items-center justify-center rounded-full bg-white cursor-pointer"
+        style="display: flex;" id="pause-button"></i>
+      <i class="fa-solid fa-forward-step text-white text-xl cursor-pointer" id="forward"></i>
     </div>
     <div class="w-[360px] flex gap-[12px] items-center justify-end">
-      <i class="fa-solid fa-heart text-white text-xl"></i>
+      @* <i class="fa-solid fa-heart text-white text-xl"></i> *@
       <i class="fa-solid fa-volume-high text-white text-xl"></i>
     </div>
   </div>
 </div>
+
+<script>
+  const player = document.getElementById("player")
+  const songName = document.getElementById("song-name")
+  const songSinger = document.getElementById("song-singer")
+  const songImage = document.getElementById("song-image")
+  const songAudio = document.getElementById("song-audio")
+  const playBtn = document.getElementById("play-button")
+  const pauseBtn = document.getElementById("pause-button")
+  const progress = document.getElementById("progress")
+  const forward = document.getElementById("forward")
+  const backward = document.getElementById("backward")
+  const currentTime = document.getElementById("current-time")
+  const durationTime = document.getElementById("duration-time")
+
+  let audio;
+
+  window.loadSongById = async function (songId) {
+    player.style.display = "block"
+    if (audio) {
+      audio.pause()
+    }
+    const response = await fetch(`/MusicAudio/song/${songId}`, {
+      method: 'GET',
+    })
+    const json = await response.json()
+    songName.innerHTML = json.Name
+    songSinger.innerHTML = json.Singer
+    songImage.src = json.Image
+    musicSrc = json.Source
+    @* songAudio.src = json.Source *@
+
+      audio = new Audio(json.Source)
+    audio.play().then(() => {
+      audio.muted = false
+    })
+
+    playBtn.addEventListener("click", () => {
+      audio.play().then(() => {
+        audio.muted = false
+      }).catch(e => {
+        console.log("Không thể phát:", e)
+      })
+      playBtn.style.display = "none"
+      pauseBtn.style.display = "flex"
+    })
+
+    pauseBtn.addEventListener("click", () => {
+      audio.pause()
+      playBtn.style.display = "flex"
+      pauseBtn.style.display = "none"
+    })
+
+    audio.addEventListener("ended", () => {
+      playBtn.style.display = "flex"
+      pauseBtn.style.display = "none"
+    })
+
+    audio.addEventListener("loadedmetadata", () => {
+      progress.max = Math.floor(audio.duration)
+      const minutes = Math.floor(audio.duration / 60)
+      const seconds = Math.floor(audio.duration % 60)
+      durationTime.innerText = `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`
+    })
+
+    audio.addEventListener("timeupdate", () => {
+      progress.value = Math.floor(audio.currentTime)
+      const minutes = Math.floor(audio.currentTime / 60)
+      const seconds = Math.floor(audio.currentTime % 60)
+      currentTime.innerText = `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`
+    })
+
+    progress.addEventListener("input", () => {
+      audio.currentTime = progress.value
+    })
+
+    forward.addEventListener("click", () => {
+      if (audio) {
+        audio.currentTime = Math.min(audio.duration, audio.currentTime + 10)
+      }
+    })
+
+    backward.addEventListener("click", () => {
+      if (audio) {
+        audio.currentTime = Math.max(0, audio.currentTime - 10)
+      }
+    })
+  }
+</script>
