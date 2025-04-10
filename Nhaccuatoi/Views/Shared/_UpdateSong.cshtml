@@ -7,7 +7,7 @@
   <div class="bg-[#3B3940] rounded-3xl shadow-lg w-1/2 overflow-hidden">
     <div class="flex justify-between items-center mb-4 pt-4 px-6">
       <h2 class="text-xl font-semibold text-white">Thêm bài hát 🎵</h2>
-      <button onclick="closeModalAddSong()" class="text-white hover:text-red-500 text-3xl">&times;</button>
+      <button onclick="closeModalUpdateSong()" class="text-white hover:text-red-500 text-3xl">&times;</button>
     </div>
     <form data-id="" asp-action="Upload" id="updateForm" method="put" class="">
       <div id="modalContent" class="text-white">
@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="mt-4 text-right bg-[#2F2D31] px-6 py-2">
-        <button onclick="closeModalAddSong()"
+        <button type="reset" onclick="closeModalUpdateSong()"
           class="bg-[#414143] text-[#9E9CA5] px-4 py-2 rounded-lg shadow-sm">Đóng</button>
         <button type="submit" class="bg-[#6D6BF6] text-white px-4 py-2 rounded-lg ml-2 shadow-sm">Lưu</button>
       </div>
