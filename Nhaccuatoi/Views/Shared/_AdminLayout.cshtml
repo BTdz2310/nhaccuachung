@@ -1,0 +1,151 @@
+@{
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="flex min-h-screen">
+  <div class="fixed h-screen flex w-[240px] py-[40px] px-[16px] justify-between !bg-[#1B1B1B] flex-col">
+    <div class="flex flex-col gap-[8px] mt-[40px]">
+      <div
+        class="p-[8px] cursor-pointer rounded-md @(ViewContext.HttpContext.Request.Path.StartsWithSegments("/admin/dashboard") ? "bg-[#5542F6] text-white" : "text-[#ACACAC]")">
+        <a href="/admin/dashboard" class="flex items-center gap-2">
+          <i class="fa-solid fa-suitcase"></i>
+          Trang Chủ
+        </a>
+      </div>
+      <div
+        class="p-[8px] cursor-pointer rounded-md @(ViewContext.HttpContext.Request.Path.StartsWithSegments("/admin/songs") ? "bg-[#5542F6] text-white" : "text-[#ACACAC]")">
+        <a href="/admin/songs" class="flex items-center gap-2">
+          <i class="fa-solid fa-music"></i>
+          Quản lý bài hát
+        </a>
+      </div>
+      <div
+        class="p-[8px] cursor-pointer rounded-md @(ViewContext.HttpContext.Request.Path.StartsWithSegments("/admin/albums") ? "bg-[#5542F6] text-white" : "text-[#ACACAC]")">
+        <a href="/admin/albums" class="flex items-center gap-2">
+          <i class="fa-solid fa-images"></i>
+          Quản lý album</a>
+      </div>
+      <div
+        class="p-[8px] cursor-pointer rounded-md @(ViewContext.HttpContext.Request.Path.StartsWithSegments("/admin/users") ? "bg-[#5542F6] text-white" : "text-[#ACACAC]")">
+        <a href="/admin/users" class="flex items-center gap-2">
+          <i class="fa-solid fa-users"></i>
+          Quản lý người dùng
+        </a>
+      </div>
+    </div>
+    <a href="/account/logout">Đăng Xuất</a>
+  </div>
+  <div class="ml-[240px] bg-[#101011] min-h-screen w-[calc(100vw-200px)]">
+    <div class="h-full w-full px-[24px]">
+      @RenderBody()
+    </div>
+  </div>
+  @* @Html.Partial("_AddSongs") *@
+  @await Html.PartialAsync("_AddSongs", new Nhaccuatoi.Models.UploadSongModel())
+  @await Html.PartialAsync("_UpdateSong", new Nhaccuatoi.Models.UpdateSongModel())
+</div>
+
+<script>
+  const listUI = document.getElementById("song-display")
+  function renderSongList(songs) {
+    console.log(songs)
+    const listUI = document.getElementById("song-display");
+
+    const html = songs.map((song) => `
+    <tr>
+      <th scope="row">${song.Id}</th>
+      <td>
+        <img src="${song.Image}" alt="Ảnh bài hát"
+          class="rounded shadow-sm object-cover object-center w-[45px] h-[45px] ml-[8px]" />
+      </td>
+      <td class="fw-semibold">${song.Name}</td>
+      <td>${song.Singer}</td>
+      <td>${song.Album?.Title ?? ''}</td>
+      <td>${song.Genre?.Name ?? ''}</td>
+      <td>${song.ReleasedYear}</td>
+      <td>${song.PlayCount}</td>
+      <td class="text-start line-clamp-4" style="max-width: 200px;">${song.Description}</td>
+      <td>
+        <audio controls style="width: 150px;">
+          <source src="${song.Source}" type="audio/mpeg">
+          Trình duyệt không hỗ trợ!
+        </audio>
+      </td>
+      <td>
+        <i class="cursor-pointer fa-solid fa-pen-to-square p-2 rounded-full bg-blue-500 text-white"
+                  data-song='${JSON.stringify(song)}' onclick="openModalUpdateSong(this)"></i>
+        <i class="fa-solid fa-trash p-2 rounded-full bg-red-700 text-white" onclick="removeSong(${song.Id})"></i>
+      </td>
+    </tr>
+  `).join('');
+
+    listUI.innerHTML = html;
+  }
+
+  async function addSong(formData) {
+    try {
+      const response = await fetch('/Admin/UploadSong', {
+        method: 'POST',
+        body: formData
+      });
+      if (response.ok) {
+        const result = await response.json();
+        alert("Tải lên thành công!");
+        renderSongList(result)
+        closeModalAddSong();
+        formAdd.reset();
+      } else {
+        alert("Lỗi khi tải lên bài hát.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Lỗi kết nối tới máy chủ.");
+    }
+  }
+
+  async function updateSong(id, data) {
+    try {
+      const response = await fetch(`/Admin/UploadSong/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          Name: data.Name,
+          Singer: data.Singer,
+          ReleasedYear: data.ReleasedYear,
+          Description: data.Description
+        })
+      });
+      if (response.ok) {
+        const result = await response.json();
+        alert("Cập nhật thành công!");
+        renderSongList(result)
+        closeModalUpdateSong();
+        formUpdate.reset();
+      } else {
+        alert("Lỗi khi cập nhật bài hát.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Lỗi kết nối tới máy chủ.");
+    }
+  }
+
+  async function removeSong(id) {
+    try {
+      const response = await fetch(`/Admin/UploadSong/${id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        const result = await response.json();
+        alert("Xoá thành công!");
+        renderSongList(result)
+      } else {
+        alert("Lỗi khi xoá bài hát.");
+      }
+    } catch (err) {
+      alert("Lỗi kết nối tới máy chủ.");
+    }
+  }
+</script>

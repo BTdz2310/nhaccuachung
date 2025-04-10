@@ -7,39 +7,30 @@
 @* <div class="flex min-h-screen">
   <div class="flex-1"></div>
   <div class="flex-1 p-6 bg-[#0A0A0A]"> *@
-    <div class="flex justify-end w-full">
-      <a href="@Url.Action("SignUp", "Account")" class="px-4 py-2 text-md rounded-full bg-[white] hover:bg-slate-100 border border-[#E6E8E9]">Sign up</a>
-    </div>
-    <div class="px-8">
-      <h2 class="text-red-300">Sign In</h2>
-      <div>
-        <form asp-controller="Account" asp-action="SignIn" method="post">
-          <fieldset class="border bg-[inherit] rounded-3xl border-red-300">
-            <legend class="ml-4 text-xs px-2 text-red-300">Username</legend>
-            <input asp-for="Username" class="w-full text-sm h-full bg-[inherit] text-red-300 !outline-0 pl-6 py-2" type="text" />
-          </fieldset>
-          @* <span asp-validation-for="Username" class="text-white"></span> *@
-          <fieldset class="border bg-[inherit] rounded-3xl border-red-300">
-            <legend class="ml-4 text-xs px-2 text-red-300">Password</legend>
-            <input asp-for="Password" class="w-full text-sm h-full bg-[inherit] text-red-300 !outline-0 pl-6 py-2" type="password" />
-          </fieldset>
-          @* <span asp-validation-for="Password" class="text-white"></span> *@
-          <button type="submit" class="w-full text-white bg-red-300 py-2 rounded-full font-semibold text-lg">Sign In</button>
-        </form>
-      </div>
-      <div class="flex items-center">
-        <div class="bg-red-300 h-[1px] grow"></div>
-        <p class="text-red-300 px-4">or login with</p>
-        <div class="bg-red-300 h-[1px] grow"></div>
-      </div>
-      <div>
-        <button>
-          <i class="fa-brands fa-facebook text-red-300 fa-xl"></i>
-        </button>
-        <button>
-          <i class="fa-brands fa-google text-red-300 fa-xl"></i>
-        </button>
-      </div>
-    </div>
-  @* </div>
+<div class="flex justify-end w-full">
+  <a href="@Url.Action("SignUp", "Account")"
+    class="px-4 py-2 text-md rounded-full bg-[white] hover:bg-slate-100 border border-[#E6E8E9]">Sign up</a>
+</div>
+<div class="px-8 grow flex items-start flex-col justify-center gap-[32px]">
+  <h2 class="text-red-300 text-2xl font-semibold">Sign In</h2>
+  <div class="w-full">
+    <form asp-controller="Account" asp-action="SignIn" method="post" class="flex flex-col gap-[20px]">
+      <fieldset class="border bg-[inherit] rounded-3xl border-red-300">
+        <legend class="ml-4 text-xs px-2 text-red-300">Username</legend>
+        <input asp-for="Username" class="w-full text-sm h-full text-red-300 !outline-0 pl-6 py-2 !bg-inherit"
+          type="text" />
+      </fieldset>
+      @* <span asp-validation-for="Username" class="text-white"></span> *@
+      <fieldset class="border bg-[inherit] rounded-3xl border-red-300">
+        <legend class="ml-4 text-xs px-2 text-red-300">Password</legend>
+        <input asp-for="Password" class="w-full text-sm h-full text-red-300 !outline-0 pl-6 py-2 !bg-inherit"
+          type="password" />
+      </fieldset>
+      @* <span asp-validation-for="Password" class="text-white"></span> *@
+      <button type="submit" class="w-full text-white bg-red-300 py-2 rounded-full font-semibold text-lg">Sign
+        In</button>
+    </form>
+  </div>
+</div>
+@* </div>
 </div> *@
