@@ -1,0 +1,101 @@
+@{
+  ViewData["Title"] = "Album";
+  Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="flex gap-[32px]">
+  <div class="w-[calc(100%-352px)]">
+    <div class="pt-[40px] overflow-hidden flex gap-[24px] items-center">
+      <img src="/images/the-wrxdies.jpg" alt="" class="w-[240px] h-[240px] rounded-[32px] object-cover object-center">
+      <div class="flex flex-col justify-between h-[240px] py-[20px]">
+        <div>
+          <p class="text-[66px] text-white font-semibold uppercase">the-wrxdies</p>
+          <p class="text-md text-white">Wrxdie - 2024</p>
+        </div>
+        <div>
+          <button onclick="window.loadSongById('1')"
+            class="text-white rounded-full px-8 py-2 !bg-[#25B8FF]">Nghe</button>
+        </div>
+      </div>
+    </div>
+    <div class="mt-[40px] flex flex-col">
+      <div class="py-4 flex justify-between items-center px-4 rounded-lg bg-[rgba(255,255,255,0.2)]">
+        <div class="flex items gap-4">
+          <p>1</p>
+          <p>Ca khúc cuối</p>
+        </div>
+        <p>3:04</p>
+      </div>
+      <div class="py-4 flex justify-between items-center px-4">
+        <div class="flex items gap-4">
+          <p>2</p>
+          <p>Băng qua Cầu Giấy</p>
+        </div>
+        <p>3:27</p>
+      </div>
+      <div class="py-4 flex justify-between items-center px-4">
+        <div class="flex items gap-4">
+          <p>3</p>
+          <p>Life of Hxstler</p>
+        </div>
+        <p>2:10</p>
+      </div>
+      <div class="py-4 flex justify-between items-center px-4">
+        <div class="flex items gap-4">
+          <p>4</p>
+          <p>Mấy đứa nhóc</p>
+        </div>
+        <p>4:23</p>
+      </div>
+      <div class="py-4 flex justify-between items-center px-4">
+        <div class="flex items gap-4">
+          <p>5</p>
+          <p>Đến thăm anh đi</p>
+        </div>
+        <p>4:23</p>
+      </div>
+      <div class="py-4 flex justify-between items-center px-4">
+        <div class="flex items gap-4">
+          <p>6</p>
+          <p>Bởi vì</p>
+        </div>
+        <p>2:42</p>
+      </div>
+      <div class="py-4 flex justify-between items-center px-4">
+        <div class="flex items gap-4">
+          <p>7</p>
+          <p>Trở về</p>
+        </div>
+        <p>3:15</p>
+      </div>
+    </div>
+  </div>
+  <div class="w-[320px] shrink-0">
+    <div class="pt-[40px]">
+      <h4 class="font-semibold pb-[20px] text-3xl">Thông tin</h4>
+      <div class="flex gap-4 items-center mt-2">
+        <p class="text-white font-semibold">Số bài hát</p>
+        <p class="text-white">24</p>
+      </div>
+      <div class="flex gap-4 items-center mt-2">
+        <p class="text-white font-semibold">Ngày phát hành</p>
+        <p class="text-white">12/11/2024</p>
+      </div>
+      <div class="flex gap-4 items-center mt-2">
+        <p class="text-white font-semibold">Nhà phát hành</p>
+        <p class="text-white">Universal Music Group</p>
+      </div>
+    </div>
+    <div class="pt-[40px]">
+      <h4 class="font-semibold pb-[20px] text-3xl">Album khác</h4>
+      <div class="flex flex-col gap-4">
+        <img src="/images/batnolen.webp" alt="" class="rounded-[24px] w-full h-[180px] object-cover object-center">
+        <p class="text-white text-lg font-semibold uppercase">Bật nó lên - Soobin</p>
+      </div>
+      <div class="flex flex-col gap-4 mt-6"></div>
+      <img src="/images/rosie.jpg" alt="" class="rounded-[24px] w-full h-[180px] object-cover object-center">
+      <p class="text-white text-lg font-semibold uppercase">Rosie - Rosé</p>
+    </div>
+  </div>
+</div>
+</div>

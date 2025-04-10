@@ -7,10 +7,17 @@
 
 <div class="flex flex-col">
   <div class="py-[16px] flex flex-col">
-    <p class="font-bold text-3xl text-white">Quản lý bài hát</p>
-    <button onclick="openModalAddSong()" class="bg-green-500 text-white px-4 py-2 rounded my-2">Thêm bài hát</button>
+    <div class="flex justify-between items-center">
+      <p class="font-bold text-3xl text-white">Quản lý bài hát</p>
+      <button onclick="openModalAddSong()" class="bg-green-500 text-white px-4 py-2 rounded my-2">Thêm bài hát</button>
+    </div>
+    <form class="my-4 w-[520px] mx-auto flex gap-3 items-center border-b-[1px] border-white pb-2" style="width: 520px;">
+      <i class="fa-solid fa-magnifying-glass text-white"></i>
+      <input placeholder="Search" class="bg-inherit border-0 outline-0 text-white grow text-xs" />
+    </form>
     <div class="container mt-5">
-      <table class="table table-hover table-bordered table-striped shadow rounded text-white overflow-scroll w-full">
+      <table
+        class="table table-hover table-bordered border-separate table-striped shadow rounded text-white overflow-scroll w-full border-spacing-y-[10px]">
         <thead class="table-dark text-center align-middle">
           <tr class="">
             <th scope="col" class="px-1">#</th>
@@ -30,25 +37,25 @@
           @foreach (var song in Model)
           {
             <tr class="">
-              <th scope="row">@song.Id</th>
-              <td>
+              <th class="px-1" scope="row">@song.Id</th>
+              <td class="px-1">
                 <img src="@song.Image" alt="Ảnh bài hát"
                   class="rounded shadow-sm object-cover object-center w-[45px] h-[45px] ml-[8px]" />
               </td>
-              <td class="fw-semibold">@song.Name</td>
-              <td>@song.Singer</td>
-              <td>@(song.Album?.Title)</td>
-              <td>@(song.Genre?.Name)</td>
-              <td>@song.ReleasedYear</td>
-              <td>@song.PlayCount</td>
-              <td class="text-start line-clamp-4" style="max-width: 200px;">@song.Description</td>
-              <td>
+              <td class="px-1" class="fw-semibold">@song.Name</td>
+              <td class="px-1">@song.Singer</td>
+              <td class="px-1">@(song.Album?.Title)</td>
+              <td class="px-1">Nhạc trẻ</td>
+              <td class="px-1">@song.ReleasedYear</td>
+              <td class="px-1">@song.PlayCount</td>
+              <td class="text-start line-clamp-4 px-1" style="max-width: 200px;">@song.Description</td>
+              <td class="px-1">
                 <audio controls style="width: 150px;">
                   <source src="@song.Source" type="audio/mpeg">
                   Trình duyệt không hỗ trợ!
                 </audio>
               </td>
-              <td class="">
+              <td class="px-1">
                 <i class="cursor-pointer fa-solid fa-pen-to-square p-2 rounded-full bg-blue-500 text-white"
                   data-song='@Html.Raw(Json.Serialize(song))' onclick="openModalUpdateSong(this)"></i>
                 <i class="cursor-pointer fa-solid fa-trash p-2 rounded-full bg-red-700 text-white"

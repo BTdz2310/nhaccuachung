@@ -1,0 +1,132 @@
+@{
+  ViewData["Title"] = "Home Page";
+  Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="flex gap-[32px]">
+  <div class="w-[calc(100%-352px)]">
+    <div class="pt-[40px] overflow-hidden">
+      <h3 class="font-inter font-semibold text-2xl pb-[20px]">Danh sách yêu thích</h3>
+      <div class="grid grid-cols-2 gap-4 gap-x-8">
+        <div class="w-full py-2 flex justify-between items-center" onclick="window.loadSongById('1')">
+          <div class="flex gap-8">
+            <img src="/images/thienlyoi.jpg" alt="" style="width: 80px; height: 80px;"
+              class="w-[24px] h-[24px] rounded-lg object-cover object-center">
+            <div class="flex flex-col gap-2 py-2">
+              <p class="text-xl font-semibold">Thiên Lý Ơi</p>
+              <p>J-97</p>
+            </div>
+          </div>
+          <p>3:40</p>
+        </div>
+        <div class="w-full py-2 flex justify-between items-center">
+          <div class="flex gap-8">
+            <img src="/images/sontung2-1487156115154_cc890bfb-4532-41f8-929a-4f171e7cfc98.webp" alt=""
+              style="width: 80px; height: 80px;" class="w-[24px] h-[24px] rounded-lg object-cover object-center">
+            <div class="flex flex-col gap-2 py-2">
+              <p class="text-xl font-semibold">Nơi này có anh</p>
+              <p>Sơn Tùng M-TP</p>
+            </div>
+          </div>
+          <p>4:36</p>
+        </div>
+        <div class="w-full py-2 flex justify-between items-center">
+          <div class="flex gap-8">
+            <img src="/images/8600+_fc4c25d5-7755-4316-a134-f89d254383f4.png" alt="" style="width: 80px; height: 80px;"
+              class="w-[24px] h-[24px] rounded-lg object-cover object-center">
+            <div class="flex flex-col gap-2 py-2">
+              <p class="text-xl font-semibold">8 vạn 6 ngàn thương</p>
+              <p>Hạo Thiên</p>
+            </div>
+          </div>
+          <p>4:38</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-[320px] shrink-0">
+    <div class="pt-[40px]">
+      <h4 class="text-lg font-semibold pb-[20px]">Vừa nghe</h4>
+      <div class="h-[64px] w-full relative">
+        <div class="flex justify-between items-start w-full p-[6px] h-full"
+          style="background: rgba(255, 255, 255, 0.2);">
+          <div class="flex gap-[12px] h-full">
+            <div class="h-full">
+              <img class="h-[52px] w-[52px] object-cover object-center rounded-lg" src="/images/thienlyoi.jpg" />
+            </div>
+            <div class="flex flex-col justify-between">
+              <p class="font-inter text-sm font-medium">Thiên Lý Ơi</p>
+              <p class="font-inter text-xs pb-[8px]">J-97</p>
+            </div>
+          </div>
+          <p class="font-inter text-sm">3:40</p>
+        </div>
+        @* <div class="w-full h-full absolute inset-0 bg-selected animate-shimmer"></div> *@
+      </div>
+      @* @for (int i = 0; i < 5; i++)
+            {
+                
+            } *@
+      <div class="h-[64px] w-full relative">
+        <div class="flex justify-between items-start w-full p-[6px] h-full">
+          <div class="flex gap-[12px] h-full">
+            <div class="h-full">
+              <img class="h-[52px] w-[52px] object-cover object-center rounded-lg" src="/images/haytraochoanh.webp" />
+            </div>
+            <div class="flex flex-col justify-between">
+              <p class="font-inter text-sm font-medium">Hãy Trao Cho Anh</p>
+              <p class="font-inter text-xs pb-[8px]">Sơn Tùng M-TP</p>
+            </div>
+          </div>
+          <p class="font-inter text-sm">4:06</p>
+        </div>
+        @* <div class="w-full h-full absolute inset-0 bg-selected animate-shimmer"></div> *@
+      </div>
+      <div class="h-[64px] w-full relative">
+        <div class="flex justify-between items-start w-full p-[6px] h-full">
+          <div class="flex gap-[12px] h-full">
+            <div class="h-full">
+              <img class="h-[52px] w-[52px] object-cover object-center rounded-lg" src="/images/timanhghen.png" />
+            </div>
+            <div class="flex flex-col justify-between">
+              <p class="font-inter text-sm font-medium">Tim anh ghen</p>
+              <p class="font-inter text-xs pb-[8px]">Wrxdie, Dangrangto</p>
+            </div>
+          </div>
+          <p class="font-inter text-sm">4:40</p>
+        </div>
+        @* <div class="w-full h-full absolute inset-0 bg-selected animate-shimmer"></div> *@
+      </div>
+      <div class="h-[64px] w-full relative">
+        <div class="flex justify-between items-start w-full p-[6px] h-full">
+          <div class="flex gap-[12px] h-full">
+            <div class="h-full">
+              <img class="h-[52px] w-[52px] object-cover object-center rounded-lg" src="/images/getmoney.png" />
+            </div>
+            <div class="flex flex-col justify-between">
+              <p class="font-inter text-sm font-medium">Get Money</p>
+              <p class="font-inter text-xs pb-[8px]">Wrxdie, Thái VG</p>
+            </div>
+          </div>
+          <p class="font-inter text-sm">2:42</p>
+        </div>
+        @* <div class="w-full h-full absolute inset-0 bg-selected animate-shimmer"></div> *@
+      </div>
+      <div class="h-[64px] w-full relative">
+        <div class="flex justify-between items-start w-full p-[6px] h-full">
+          <div class="flex gap-[12px] h-full">
+            <div class="h-full">
+              <img class="h-[52px] w-[52px] object-cover object-center rounded-lg" src="/images/daudau.png" />
+            </div>
+            <div class="flex flex-col justify-between">
+              <p class="font-inter text-sm font-medium">Đau đầu</p>
+              <p class="font-inter text-xs pb-[8px]">Wrxdie</p>
+            </div>
+          </div>
+          <p class="font-inter text-sm">3:47</p>
+        </div>
+        @* <div class="w-full h-full absolute inset-0 bg-selected animate-shimmer"></div> *@
+      </div>
+    </div>
+  </div>
+</div>

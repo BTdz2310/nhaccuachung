@@ -23,6 +23,18 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Album() {
+        return View("Album");
+    }
+
+    public IActionResult Favorite() {
+        return View("Favorite");
+    }
+
+    public IActionResult Search() {
+        return View("Search");
+    }
+
     public IActionResult Privacy()
     {
         return View();
