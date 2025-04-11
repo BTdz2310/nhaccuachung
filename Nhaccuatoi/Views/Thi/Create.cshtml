@@ -1,0 +1,59 @@
+@model List<SongModel>
+
+@{
+  ViewData["Title"] = "Thêm bài hát";
+  Layout = "~/Views/Shared/_ThiLayout.cshtml";
+}
+
+<div class="flex flex-col">
+  <div class="py-[16px] flex flex-col">
+    <div class="flex justify-between items-center">
+      <p class="font-bold text-3xl text-white">Quản lý bài hát</p>
+      <button onclick="openModalAddSong()" class="bg-green-500 text-white px-4 py-2 rounded my-2">Thêm bài hát</button>
+    </div>
+    <div class="container mt-5">
+      <table
+        class="table table-hover table-bordered border-separate table-striped shadow rounded text-white overflow-scroll w-full border-spacing-y-[10px]">
+        <thead class="table-dark text-center align-middle">
+          <tr class="">
+            <th scope="col" class="px-1">#</th>
+            <th scope="col" class="px-1">Ảnh</th>
+            <th scope="col" class="px-1">Tên bài hát</th>
+            <th scope="col" class="px-1">Ca sĩ</th>
+            <th scope="col" class="px-1">Album</th>
+            <th scope="col" class="px-1">Thể loại</th>
+            <th scope="col" class="px-1">Năm phát hành</th>
+            <th scope="col" class="px-1">Lượt nghe</th>
+            <th scope="col" class="px-1">Lời</th>
+            <th scope="col" class="px-1">Nghe thử</th>
+          </tr>
+        </thead>
+        <tbody class="text-center align-middle" id="song-display">
+          @foreach (var song in Model)
+          {
+            <tr class="">
+              <th class="px-1" scope="row">@song.Id</th>
+              <td class="px-1">
+                <img src="@song.Image" alt="Ảnh bài hát"
+                  class="rounded shadow-sm object-cover object-center w-[45px] h-[45px] ml-[8px]" />
+              </td>
+              <td class="px-1" class="fw-semibold">@song.Name</td>
+              <td class="px-1">@song.Singer</td>
+              <td class="px-1">@(song.Album?.Title)</td>
+              <td class="px-1">Nhạc trẻ</td>
+              <td class="px-1">@song.ReleasedYear</td>
+              <td class="px-1">@song.PlayCount</td>
+              <td class="text-start line-clamp-4 px-1" style="max-width: 200px;">@song.Description</td>
+              <td class="px-1">
+                <audio controls style="width: 150px;">
+                  <source src="@song.Source" type="audio/mpeg">
+                  Trình duyệt không hỗ trợ!
+                </audio>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

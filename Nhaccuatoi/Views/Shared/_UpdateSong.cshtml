@@ -2,6 +2,7 @@
 @{
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@inject IHttpContextAccessor HttpContextAccessor
 
 <div id="updateSong" class="fixed inset-0 bg-black bg-opacity-50 invisible items-center justify-center z-50">
   <div class="bg-[#3B3940] rounded-3xl shadow-lg w-1/2 overflow-hidden">
@@ -9,7 +10,8 @@
       <h2 class="text-xl font-semibold text-white">Thêm bài hát 🎵</h2>
       <button onclick="closeModalUpdateSong()" class="text-white hover:text-red-500 text-3xl">&times;</button>
     </div>
-    <form data-id="" asp-action="Upload" id="updateForm" method="put" class="">
+    <form data-id="" data-username="@HttpContextAccessor.HttpContext.Session.Id" asp-action="Upload" id="updateForm"
+      method="put" class="">
       <div id="modalContent" class="text-white">
         <div class="mx-auto bg-inherit p-8 pt-2 shadow-lg rounded-lg h-[420px] overflow-scroll space-y-5">
           @* @if (TempData["Success"] != null)
@@ -48,6 +50,8 @@
 
         </div>
       </div>
+      <p>Thời gian: <span id="time-check"></span></p>
+      <p>SessionId: <span id="id-check"></span></p>
       <div class="mt-4 text-right bg-[#2F2D31] px-6 py-2">
         <button type="reset" onclick="closeModalUpdateSong()"
           class="bg-[#414143] text-[#9E9CA5] px-4 py-2 rounded-lg shadow-sm">Đóng</button>
@@ -63,8 +67,10 @@
   const yearUpdate = document.getElementById("year-update")
   const desUpdate = document.getElementById("des-update")
   const formUpdate = document.getElementById('updateForm');
+  const timeCheck = document.getElementById('time-check')
+  const idCheck = document.getElementById('id-check')
 
-  function openModalUpdateSong(el) {
+  async function openModalUpdateSong(el) {
     const data = JSON.parse(el.getAttribute("data-song"));
     document.getElementById("updateSong").classList.remove("invisible");
     document.getElementById("updateSong").classList.add("flex");
@@ -73,6 +79,13 @@
     singerUpdate.value = data.Singer;
     yearUpdate.value = data.ReleasedYear;
     desUpdate.value = data.Description;
+    const userId = formUpdate.getAttribute("data-username")
+    const response = await fetch(`/Thi/Check/${data.Id}/${userId}`, {
+      method: 'PUT',
+    });
+    const json = await response.json()
+    timeCheck.innerHTML = json.DatetimeStr
+    idCheck.innerHTML = json.SessionId
   }
 
   function closeModalUpdateSong() {

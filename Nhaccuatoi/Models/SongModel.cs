@@ -36,6 +36,9 @@ public class SongModel
   public int? GenreId { get; set; }
   public GenreModel? Genre { get; set; }
 
+  public string DatetimeStr { get; set; } = "";
+  public string SessionId { get; set; } = "";
+
   public ICollection<PlaylistSongModel> PlaylistSongs { get; set; } = new List<PlaylistSongModel>();
   public ICollection<SongLikeModel> LikedByUsers { get; set; } = new List<SongLikeModel>();
 

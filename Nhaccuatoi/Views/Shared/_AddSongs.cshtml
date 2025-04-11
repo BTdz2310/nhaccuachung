@@ -23,41 +23,42 @@
             <label asp-for="Name" class="block font-medium mb-1">Tên bài hát</label>
             <input asp-for="Name"
               class="text-black w-full border px-3 py-2 rounded focus:outline-none focus:ring focus:border-blue-300" />
-            <span asp-validation-for="Name" class="text-red-500 text-sm"></span>
+            <span asp-validation-for="Name" class="text-red-500 text-sm" id="name-ano"></span>
           </div>
 
           <div>
             <label asp-for="Singer" class="block font-medium mb-1">Tác giả / Ca sĩ</label>
             <input asp-for="Singer"
               class="text-black w-full border px-3 py-2 rounded focus:outline-none focus:ring focus:border-blue-300" />
-            <span asp-validation-for="Singer" class="text-red-500 text-sm"></span>
+            <span asp-validation-for="Singer" class="text-red-500 text-sm" id="singer-ano"></span>
           </div>
 
           <div>
             <label asp-for="ReleasedYear" class="block font-medium mb-1">Năm phát hành</label>
             <input asp-for="ReleasedYear" type="number"
               class="text-black w-full border px-3 py-2 rounded focus:outline-none focus:ring focus:border-blue-300" />
-            <span asp-validation-for="ReleasedYear" class="text-red-500 text-sm"></span>
+            <span asp-validation-for="ReleasedYear" class="text-red-500 text-sm" id="year-ano"></span>
           </div>
 
           <div>
             <label asp-for="AudioFile" class="block font-medium mb-1">File MP3</label>
             <input asp-for="AudioFile" type="file" accept=".mp3"
               class="w-full border px-3 py-2 rounded file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-            <span asp-validation-for="AudioFile" class="text-red-500 text-sm"></span>
+            <span asp-validation-for="AudioFile" class="text-red-500 text-sm" id="mp3-ano"></span>
           </div>
 
           <div>
             <label asp-for="ImageFile" class="block font-medium mb-1">Ảnh minh họa</label>
             <input asp-for="ImageFile" type="file" accept="image/*"
               class="w-full border px-3 py-2 rounded file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-            <span asp-validation-for="ImageFile" class="text-red-500 text-sm"></span>
+            <span asp-validation-for="ImageFile" class="text-red-500 text-sm" id="img-ano"></span>
           </div>
 
           <div>
             <label asp-for="Description" class="block font-medium mb-1">Mô tả</label>
             <textarea asp-for="Description" rows="3"
               class="text-black w-full border px-3 py-2 rounded focus:outline-none focus:ring focus:border-blue-300"></textarea>
+            <span asp-validation-for="Description" class="text-red-500 text-sm" id="des-ano"></span>
           </div>
 
         </div>

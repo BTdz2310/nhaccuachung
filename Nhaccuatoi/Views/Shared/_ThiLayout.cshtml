@@ -1,51 +1,44 @@
 @{
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@inject IHttpContextAccessor HttpContextAccessor
 
-<div class="flex min-h-screen">
-  <div class="fixed h-screen flex w-[240px] py-[40px] px-[16px] justify-between !bg-[#1B1B1B] flex-col">
-    <div class="flex flex-col gap-[8px] mt-[40px]">
-      <div
-        class="p-[8px] cursor-pointer rounded-md @(ViewContext.HttpContext.Request.Path.StartsWithSegments("/admin/dashboard") ? "bg-[#5542F6] text-white" : "text-[#ACACAC]")">
-        <a href="/admin/dashboard" class="flex items-center gap-2">
-          <i class="fa-solid fa-suitcase"></i>
-          Trang Chủ
-        </a>
-      </div>
-      <div
-        class="p-[8px] cursor-pointer rounded-md @(ViewContext.HttpContext.Request.Path.StartsWithSegments("/admin/songs") ? "bg-[#5542F6] text-white" : "text-[#ACACAC]")">
-        <a href="/admin/songs" class="flex items-center gap-2">
-          <i class="fa-solid fa-music"></i>
-          Quản lý bài hát
-        </a>
-      </div>
-      <div
-        class="p-[8px] cursor-pointer rounded-md @(ViewContext.HttpContext.Request.Path.StartsWithSegments("/admin/albums") ? "bg-[#5542F6] text-white" : "text-[#ACACAC]")">
-        <a href="/admin/albums" class="flex items-center gap-2">
-          <i class="fa-solid fa-images"></i>
-          Quản lý album</a>
-      </div>
-      <div
-        class="p-[8px] cursor-pointer rounded-md @(ViewContext.HttpContext.Request.Path.StartsWithSegments("/admin/users") ? "bg-[#5542F6] text-white" : "text-[#ACACAC]")">
-        <a href="/admin/users" class="flex items-center gap-2">
-          <i class="fa-solid fa-users"></i>
-          Quản lý người dùng
-        </a>
-      </div>
+<div class="min-h-screen relative bg-[#101010] pt-[54px] flex items-stretch">
+  <header class="fixed h-[54px] w-screen bg-[white]"
+    style="position: fixed; height: 54px; width: 100vw; background: white; left: 0; top: 0; z-index: 100;">
+    <div class="w-full flex items-center">
+      <p class="text-black">@(ViewData["Title"])</p>
     </div>
-    <a href="/account/logout" class="text-white">Đăng Xuất</a>
+  </header>
+  <div class="w-[200px] bg-[#101010] h-full pt-[54px] flex flex-col justify-between text-white py-[32px] px-[20px]">
+    <div class="flex flex-col justify-start gap-[60px]">
+      <a href="/Thi/Create" class="px-6 py-2 text-white">Thêm</a>
+      <a href="/Thi/Update" class="px-6 py-2 text-white">Sửa</a>
+    </div>
+    <div>
+      @* <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Setting</p>
+      <p class="font-inter text-base pb-2 text-[#E7E7E7] font-light">Log out</p> *@
+      @Html.Raw(!string.IsNullOrEmpty(HttpContextAccessor.HttpContext?.Session.GetString("UserId"))
+            ? "<a href='/account/logout'>Đăng xuất</a>"
+            : "<a href='/account/signin'>Đăng nhập</a>")
+    </div>
   </div>
-  <div class="ml-[240px] bg-[#101011] min-h-screen w-[calc(100vw-200px)]">
-    <div class="h-full w-full px-[24px]">
+  <div class="bg-[#232323] w-[calc(100vw-200px)] h-full min-h-screen md:rounded-s-[32px]">
+    <div class="px-[32px] py-[32px] text-white">
       @RenderBody()
     </div>
   </div>
-  @* @Html.Partial("_AddSongs") *@
-  @* @await Html.PartialAsync("_AddSongs", new Nhaccuatoi.Models.UploadSongModel())
-  @await Html.PartialAsync("_UpdateSong", new Nhaccuatoi.Models.UpdateSongModel()) *@
+  @await Html.PartialAsync("_AddSongs", new Nhaccuatoi.Models.UploadSongModel())
+  @await Html.PartialAsync("_UpdateSong", new Nhaccuatoi.Models.UpdateSongModel())
 </div>
+<footer class="flex gap-4 items-center">
+  <p class="">Nhóm 13</p>
+  <p class="">Bùi Anh Tuấn</p>
+  <p class="">Vũ Việt Hưng</p>
+  <p class="">Lương Minh Thái</p>
+</footer>
 
-@* <script>
+<script>
   const listUI = document.getElementById("song-display")
   const nameAno = document.getElementById("name-ano")
   const singerAno = document.getElementById("singer-ano")
@@ -96,11 +89,11 @@
       });
       if (response.ok) {
         const result = await response.json();
-        alert("Tải lên thành công!");
         renderSongList(result)
         closeModalAddSong();
         formAdd.reset();
       } else {
+        const result = await response.json();
         nameAno.innerHTML = (result.Name || []).join("\n")
         singerAno.innerHTML = (result.Singer || []).join("\n")
         yearAno.innerHTML = (result.ReleasedYear || []).join("\n")
@@ -110,7 +103,7 @@
       }
     } catch (err) {
       console.error(err);
-      alert("Lỗi kết nối tới máy chủ.");
+      alert("Bạn không phải là Admin");
     }
   }
 
@@ -130,33 +123,35 @@
       });
       if (response.ok) {
         const result = await response.json();
-        alert("Cập nhật thành công!");
         renderSongList(result)
         closeModalUpdateSong();
         formUpdate.reset();
       } else {
-        alert("Lỗi khi cập nhật bài hát.");
+        const result = await response.json();
+        nameAno.innerHTML = (result.Name || []).join("\n")
+        singerAno.innerHTML = (result.Singer || []).join("\n")
+        yearAno.innerHTML = (result.ReleasedYear || []).join("\n")
+        desAno.innerHTML = (result.Description || []).join("\n")
       }
     } catch (err) {
       console.error(err);
-      alert("Lỗi kết nối tới máy chủ.");
+      alert("Bạn không phải là Admin");
     }
   }
 
   async function removeSong(id) {
     try {
-      const response = await fetch(`/Admin/UploadSong/${id}`, {
+      const response = await fetch(`/Thi/UploadSong/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
         const result = await response.json();
-        alert("Xoá thành công!");
         renderSongList(result)
       } else {
         alert("Lỗi khi xoá bài hát.");
       }
     } catch (err) {
-      alert("Lỗi kết nối tới máy chủ.");
+      alert("Bạn không phải là Admin");
     }
   }
-</script> *@
+</script>
